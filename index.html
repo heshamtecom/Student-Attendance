@@ -20,4 +20,59 @@
             max-width: 800px;  
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
             background-color: #fff;  
-            padding: 20
+            padding: 20px;  
+            border-radius: 8px;  
+            text-align: center;  
+        }  
+        .form-container {  
+            width: 100%;  
+            height: 780px;  
+            border: none;  
+        }  
+        #accessDenied {  
+            display: none;  
+            color: red;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="container">  
+        <h1>Student Attendance Form</h1>  
+        <div id="accessDenied">Access Denied: This form is only available within 1 km of Tripoli University.</div>  
+        <iframe id="formIframe" class="form-container" src="https://docs.google.com/forms/d/e/1FAIpQLSeNi95YGCCErFkicuOu1uiFoBV4e3jDtYRcdZYXhfzYoE52IQ/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0" style="display:none;">Loading…</iframe>  
+    </div>  
+  
+    <script>  
+        // Coordinates of Tripoli University  
+        const universityLat = 32.8456;  
+        const universityLng = 13.1995;  
+        const radiusInMeters = 1000; // Define the radius as 1 kilometer (1000 meters)  
+  
+        // Function to calculate the distance between two sets of coordinates using the Haversine formula  
+        function getDistanceFromLatLonInMeters(lat1, lon1, lat2, lon2) {  
+            const R = 6371000; // Radius of the Earth in meters  
+            const dLat = (lat2 - lat1) * Math.PI / 180;  
+            const dLon = (lon2 - lon1) * Math.PI / 180;  
+            const a =   
+                0.5 - Math.cos(dLat)/2 +   
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *   
+                (1 - Math.cos(dLon))/2;  
+            return R * 2 * Math.asin(Math.sqrt(a));  
+        }  
+  
+        // Get user's current position using HTML5 Geolocation API  
+        if (navigator.geolocation) {  
+            navigator.geolocation.getCurrentPosition(position => {  
+                const userLat = position.coords.latitude;  
+                const userLng = position.coords.longitude;  
+                const distance = getDistanceFromLatLonInMeters(userLat, userLng, universityLat, universityLng);  
+                if (distance <= radiusInMeters) {  
+                    document.getElementById('formIframe').style.display = 'block';  
+                } else {  
+                    document.getElementById('accessDenied').style.display = 'block';  
+                }  
+            }, error => {  
+                console.error('Error getting geolocation:', error);  
+                document.getElementById('accessDenied').style.display = 'block';  
+            });  
+        }
