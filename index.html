@@ -73,6 +73,13 @@
                 }  
             }, error => {  
                 console.error('Error getting geolocation:', error);  
+                document.getElementById('accessDenied').innerHTML = 'Error: Unable to determine your location.';  
                 document.getElementById('accessDenied').style.display = 'block';  
             });  
-        }
+        } else {  
+            document.getElementById('accessDenied').innerHTML = 'Error: Geolocation is not supported by your browser.';  
+            document.getElementById('accessDenied').style.display = 'block';  
+        }  
+    </script>  
+</body>  
+</html>  
