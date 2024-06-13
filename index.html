@@ -25,9 +25,10 @@
             text-align: center;  
         }  
         .form-container {  
-            width: 100%;  
+            width: 640px;  
             height: 780px;  
             border: none;  
+            margin: 0 auto;  
         }  
         #accessDenied {  
             display: none;  
@@ -69,16 +70,16 @@
                 if (distance <= radiusInMeters) {  
                     document.getElementById('formIframe').style.display = 'block';  
                 } else {  
-                    document.getElementById('accessDenied').style.display = 'block';  
+                    document.getElementById('accessDenied').style.display = 'block'; // Display error for out-of-bounds users  
                 }  
             }, error => {  
                 console.error('Error getting geolocation:', error);  
                 document.getElementById('accessDenied').innerHTML = 'Error: Unable to determine your location.';  
-                document.getElementById('accessDenied').style.display = 'block';  
+                document.getElementById('accessDenied').style.display = 'block'; // Display error for geolocation failure  
             });  
         } else {  
             document.getElementById('accessDenied').innerHTML = 'Error: Geolocation is not supported by your browser.';  
-            document.getElementById('accessDenied').style.display = 'block';  
+            document.getElementById('accessDenied').style.display = 'block'; // Display error for unsupported geolocation  
         }  
     </script>  
 </body>  
