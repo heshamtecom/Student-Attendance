@@ -74,11 +74,11 @@
                 }  
             }, error => {  
                 console.error('Error getting geolocation:', error);  
-                document.getElementById('accessDenied').innerHTML = 'Error: Unable to determine your location.';  
+                document.getElementById('accessDenied').innerHTML = 'خطأ: لم نتمكن من تحديد موقعك';  
                 document.getElementById('accessDenied').style.display = 'block'; // Display error for geolocation failure  
             });  
         } else {  
-            document.getElementById('accessDenied').innerHTML = 'Error: Geolocation is not supported by your browser.';  
+            document.getElementById('accessDenied').innerHTML = 'خطأ: متصفحك لا يدعم تحديد الموقع';  
             document.getElementById('accessDenied').style.display = 'block'; // Display error for unsupported geolocation  
         }  
     </script>  
